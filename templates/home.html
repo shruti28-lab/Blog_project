@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Blogs</title>
+    <style>
+        body {
+            padding: 120px 80px 0px 80px;
+            font-family: Arial, sans-serif;
+            background-color:rgba(227, 220, 205, 0.247);
+            margin: 20px;
+        }
+        
+        h2 {
+            font-size: 72px;
+            margin-top : 0;
+            margin-bottom: 107px;
+            color: #333;
+        }
+        h3{
+            font-size: 32px;
+            margin-bottom: 20px;
+        }
+        p{
+            font-size: 20px;
+            color: #555;
+        }
+        small {
+            margin-top: 12px;
+        }
+        .main-container{
+            display: flex;
+            flex-direction: column;
+            gap: 40px;
+        }
+        .container {
+            position: relative;
+            width: 400px;
+            border: 1px solid black;
+            padding: 20px;
+            background-color: aliceblue;
+            border-radius: 10px;
+            box-shadow: 2px 2px 12px rgba(0, 0, 0, 0.552);
+            
+
+        }
+
+        div {
+            margin-bottom: 20px;
+        }
+        hr {
+            border: 0;
+            height: 1px;
+            background: #ccc;
+        }
+        .read{
+            font-size: 17px;
+            color: blue;
+            position: absolute;
+            margin-top: -1px;
+            margin-left: 10px;
+        }
+
+    </style>
+</head>
+<body>
+    {% extends 'base.html' %}
+    {% block content %}
+    <h2>Welcome to the Blog Post</h2>
+    <div class="main-container">
+        {% for post in posts %}
+        <div class = "container">
+            <h3>{{ post.title }}</h3>
+            <p>{{ post.content |slice:":100" }}...</p>
+            <small>By {{ post.author}}  -  {{ post.date_posted}}</small>
+            <a class="read" href="{% url 'post_view' post.pk %}">read more</a>
+            <hr>
+            
+        </div>
+        {% endfor %}
+    </div>
+    {% endblock %}    
+    
+</body>
+</html>
