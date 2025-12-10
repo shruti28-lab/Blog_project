@@ -1,19 +1,14 @@
-
-
+import os
 from pathlib import Path
-import dj_database_url 
+import dj_database_url
 
 BASE_DIR = Path(__file__).resolve().parent.parent
 
+SECRET_KEY = os.environ.get('SECRET_KEY', 'django-insecure-fallback-key-change-this')
 
-SECRET_KEY = 'django-insecure-d)9x8^-ccdt_@b_38r1f(s#(84iij250j6vl#5hkp6(+y9dj)7'
+DEBUG = os.environ.get('DEBUG', 'False') == 'True'
 
-DEBUG = False
-
-ALLOWED_HOSTS = ['Blog_Project.onrender.com', 'localhost']
-
-
-
+ALLOWED_HOSTS = os.environ.get('ALLOWED_HOSTS', 'localhost').split(',')
 
 INSTALLED_APPS = [
     'django.contrib.admin',
@@ -23,18 +18,17 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'Blog',
-
 ]
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
+    'whitenoise.middleware.WhiteNoiseMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
-    'whitenoise.middleware.WhiteNoiseMiddleware',
 ]
 
 ROOT_URLCONF = 'Blog_Project.urls'
@@ -56,20 +50,13 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'Blog_Project.wsgi.application'
 
-
-
-
 DATABASES = {
-
-    'default': dj_database_url.config(conn_max_age=600, ssl_require=True),
-    # 'default': {
-    #     'ENGINE': 'django.db.backends.sqlite3',
-    #     'NAME': BASE_DIR / 'db.sqlite3',
-    # }
+    'default': dj_database_url.config(
+        default=os.environ.get('DATABASE_URL', 'sqlite:///db.sqlite3'),
+        conn_max_age=600,
+        ssl_require=True
+    )
 }
-
-
-
 
 AUTH_PASSWORD_VALIDATORS = [
     {
@@ -86,27 +73,13 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
-
-
-
 LANGUAGE_CODE = 'en-us'
-
 TIME_ZONE = 'UTC'
-
 USE_I18N = True
-
 USE_TZ = True
-
-
 
 STATIC_URL = 'static/'
 STATIC_ROOT = BASE_DIR / 'staticfiles'
 
-
-
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
-
 LOGIN_REDIRECT_URL = '/blog/'
-
-
-
