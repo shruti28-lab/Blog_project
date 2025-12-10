@@ -10,7 +10,7 @@ SECRET_KEY = 'django-insecure-d)9x8^-ccdt_@b_38r1f(s#(84iij250j6vl#5hkp6(+y9dj)7
 
 DEBUG = False
 
-ALLOWED_HOSTS = ['blog_project.onrender.com', 'localhost']
+ALLOWED_HOSTS = ['Blog_project.onrender.com', 'localhost']
 
 
 
@@ -107,3 +107,4 @@ STATIC_ROOT = BASE_DIR / 'staticfiles'
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 LOGIN_REDIRECT_URL = '/blog/'
+
